@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
@@ -8,7 +9,6 @@ import {
   BarChart3,
   Sparkles,
   Mail,
-  Linkedin,
   ArrowDown,
   GraduationCap,
   Briefcase,
@@ -21,13 +21,15 @@ import {
   MapPin,
   Calendar,
   ChevronRight,
+  Activity,
+  Trophy,
+  Zap,
 } from "lucide-react";
 
 // ───────────────────────────────────────────────────────────
 //  WhatsApp
 // ───────────────────────────────────────────────────────────
 
-// TODO: Replace with your real WhatsApp number (country code + number, no + or spaces)
 const WHATSAPP_NUMBER = "6287789082198";
 const WHATSAPP_TEXT = encodeURIComponent(
   "Halo Nandana, saya ingin berdiskusi tentang teknologi / kolaborasi proyek."
@@ -72,9 +74,9 @@ function LinkedInIcon({ size = 18, className = "" }) {
 
 const PROFILE = {
   name: "Nandana Fawaz Al'Aziz",
-  title: "Computer Science Student BINUS University",
-  bio: "Mahasiswa Computer Science BINUS University yang tertarik pada AI, Machine Learning, Data Analysis, dan Software Development.",
-  focus: ["AI", "Machine Learning", "Data Analysis", "Software Development"],
+  initials: "NF",
+  title: "3rd-year CS Student BINUS University",
+  bio: "Mahasiswa tahun ke-3 Computer Science BINUS University yang tertarik pada AI, Machine Learning, Data Analysis, dan Software Development.",
 };
 
 const NAV_LINKS = [
@@ -86,64 +88,132 @@ const NAV_LINKS = [
 ];
 
 const ABOUT_PARAGRAPHS = [
-  "Halo, saya Nandana Fawaz Al'Aziz — mahasiswa BINUS University yang memiliki minat besar dalam bidang teknologi dan pengembangan software. Saya senang mempelajari hal baru, bekerja secara tim, serta mengembangkan kemampuan dalam pemrograman dan analisis sistem.",
+  "Halo, saya Nandana Fawaz Al'Aziz mahasiswa BINUS University yang memiliki minat besar dalam bidang teknologi dan pengembangan software. Saya senang mempelajari hal baru, bekerja secara tim, serta mengembangkan kemampuan dalam pemrograman dan analisis sistem.",
   "Saat ini saya sedang fokus meningkatkan kemampuan di bidang software development, khususnya Java, web development, dan database.",
   "Saya terbuka untuk kesempatan belajar, kolaborasi proyek, internship, dan pengembangan karier di bidang teknologi.",
 ];
 
 const SKILLS = [
-  { title: "Programming", icon: Code2, items: ["Python", "Java", "C", "C++"] },
+  {
+    title: "Programming",
+    icon: Code2,
+    color: "cyan",
+    items: ["Python", "Java", "C", "C++"],
+  },
   {
     title: "AI / Machine Learning",
     icon: Brain,
+    color: "violet",
     items: ["PyTorch", "TensorFlow", "ResNet50", "EfficientNetB0", "CNN", "Image Classification"],
   },
   {
     title: "Data & Analysis",
     icon: BarChart3,
-    items: ["EDA", "Data Cleaning", "Classification", "Confusion Matrix", "ROC-AUC", "Statistical Testing"],
+    color: "rose",
+    items: ["EDA", "Data Cleaning", "Classification", "Confusion Matrix"],
   },
   {
     title: "Database",
     icon: DatabaseIcon,
-    items: ["MySQL", "SQL", "ERD", "Database Design", "Normalisasi"],
+    color: "emerald",
+    items: ["MySQL", "SQL", "ERD", "Database Design"],
   },
   {
     title: "Tools",
     icon: Wrench,
+    color: "amber",
     items: ["Figma", "Git", "Android Studio", "VS Code", "Eclipse"],
   },
 ];
 
+const COLOR_THEME = {
+  cyan: {
+    text: "text-cyan-300",
+    bg: "bg-cyan-500/15",
+    border: "border-cyan-400/30",
+    ring: "ring-cyan-400/40",
+    glow: "bg-cyan-500/30",
+    pill: "border-cyan-400/20 hover:border-cyan-400/60 hover:text-cyan-300",
+    chip: "border-cyan-400/20 text-cyan-200/80",
+    conic: "from-cyan-400 via-cyan-500/40 to-cyan-400",
+  },
+  violet: {
+    text: "text-violet-300",
+    bg: "bg-violet-500/15",
+    border: "border-violet-400/30",
+    ring: "ring-violet-400/40",
+    glow: "bg-violet-500/30",
+    pill: "border-violet-400/20 hover:border-violet-400/60 hover:text-violet-300",
+    chip: "border-violet-400/20 text-violet-200/80",
+    conic: "from-violet-400 via-violet-500/40 to-violet-400",
+  },
+  rose: {
+    text: "text-rose-300",
+    bg: "bg-rose-500/15",
+    border: "border-rose-400/30",
+    ring: "ring-rose-400/40",
+    glow: "bg-rose-500/30",
+    pill: "border-rose-400/20 hover:border-rose-400/60 hover:text-rose-300",
+    chip: "border-rose-400/20 text-rose-200/80",
+    conic: "from-rose-400 via-rose-500/40 to-rose-400",
+  },
+  emerald: {
+    text: "text-emerald-300",
+    bg: "bg-emerald-500/15",
+    border: "border-emerald-400/30",
+    ring: "ring-emerald-400/40",
+    glow: "bg-emerald-500/30",
+    pill: "border-emerald-400/20 hover:border-emerald-400/60 hover:text-emerald-300",
+    chip: "border-emerald-400/20 text-emerald-200/80",
+    conic: "from-emerald-400 via-emerald-500/40 to-emerald-400",
+  },
+  amber: {
+    text: "text-amber-300",
+    bg: "bg-amber-500/15",
+    border: "border-amber-400/30",
+    ring: "ring-amber-400/40",
+    glow: "bg-amber-500/30",
+    pill: "border-amber-400/20 hover:border-amber-400/60 hover:text-amber-300",
+    chip: "border-amber-400/20 text-amber-200/80",
+    conic: "from-amber-400 via-amber-500/40 to-amber-400",
+  },
+};
+
 const PROJECTS = [
   {
+    number: "01",
     title: "TB Detection",
     subtitle: "Deep Learning for Medical Imaging",
     role: "Data Analyst / ML",
     icon: ScanLine,
-    accent: "from-cyan-500/30 to-cyan-500/0",
+    color: "cyan",
+    conic: "from-cyan-400 via-violet-500 to-rose-500",
     description:
       "Sistem deep learning untuk mendeteksi Tuberculosis dari citra X-ray paru secara otomatis menggunakan arsitektur CNN modern.",
     tech: ["CNN", "ResNet50", "EfficientNetB0", "Grad-CAM"],
     focus: ["X-ray image analysis", "Model evaluation"],
   },
   {
+    number: "02",
     title: "VENUEKITAAJA",
     subtitle: "Venue & Event Organizer Discovery",
     role: "UI/UX Designer",
     icon: Smartphone,
-    accent: "from-violet-500/30 to-violet-500/0",
+    color: "violet",
+    conic: "from-violet-400 via-cyan-500 to-emerald-500",
     description:
       "Aplikasi mobile untuk menemukan venue dan event organizer terdekat dengan tampilan antarmuka yang intuitif.",
     tech: ["Figma", "Mobile UI", "Design System"],
     focus: ["Home", "Explore", "Activity", "Profile"],
   },
   {
+    number: "03",
     title: "AI Toxicity Detection",
     subtitle: "Implicit Toxicity in Social Media",
     role: "Research & Data Analysis",
     icon: MessageSquareWarning,
-    accent: "from-rose-500/30 to-rose-500/0",
+    color: "rose",
+    conic: "from-rose-400 via-amber-500 to-cyan-500",
     description:
       "Riset deteksi toksisitas implisit pada media sosial menggunakan pendekatan NLP dan Large Language Model.",
     tech: ["NLP", "LLM", "Contextual Augmentation"],
@@ -167,23 +237,22 @@ const EDUCATION = [
     detail: "Computer Science — Ongoing",
     period: "Present",
     icon: GraduationCap,
+    current: true,
   },
   {
     school: "SMAN 12 Tangerang Selatan",
     detail: "Sekolah Menengah Atas",
     period: "Senior High School",
     icon: GraduationCap,
+    current: false,
   },
 ];
 
-const INTERESTS = [
-  "Artificial Intelligence",
-  "Machine Learning",
-  "Computer Vision",
-  "NLP",
-  "LLM",
-  "Data Analysis",
-  "Software Engineering",
+const STATS = [
+  { target: 3, suffix: "+", label: "Projects", color: "cyan" },
+  { target: 25, suffix: "+", label: "Skills", color: "violet" },
+  { target: 5, suffix: "", label: "Tech Areas", color: "rose" },
+  { target: 2028, suffix: "", label: "Graduating", color: "emerald" },
 ];
 
 // ───────────────────────────────────────────────────────────
@@ -200,11 +269,37 @@ const GLASS_BTN_SECONDARY =
   "bg-white/[0.04] backdrop-blur-xl border border-white/10 hover:bg-white/[0.08] hover:border-white/20 text-white";
 
 // ───────────────────────────────────────────────────────────
+//  Hooks: useCounter
+// ───────────────────────────────────────────────────────────
+
+function useCounter(target, duration = 1600) {
+  const [value, setValue] = useState(0);
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.4 });
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (!inView || startedRef.current) return;
+    startedRef.current = true;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.floor(eased * target));
+      if (t < 1) requestAnimationFrame(tick);
+      else setValue(target);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, target, duration]);
+
+  return [ref, value];
+}
+
+// ───────────────────────────────────────────────────────────
 //  Motion helpers
 // ───────────────────────────────────────────────────────────
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0 },
 };
 
@@ -229,16 +324,22 @@ function Reveal({ children, className = "", delay = 0 }) {
   );
 }
 
-function SectionTitle({ icon: Icon, title, kicker }) {
+function SectionHeading({ number, icon: Icon, title, kicker }) {
   return (
     <Reveal>
-      <div className="mb-12">
+      <div className="mb-12 relative">
+        <span
+          aria-hidden
+          className="absolute -top-6 left-0 font-mono text-7xl md:text-8xl font-black text-white/[0.04] tracking-tighter select-none pointer-events-none"
+        >
+          {number}
+        </span>
         {kicker && (
-          <p className="text-accent text-sm font-semibold tracking-[0.2em] uppercase mb-3">
+          <p className="text-accent text-sm font-semibold tracking-[0.2em] uppercase mb-3 flex items-center gap-2">
             {kicker}
           </p>
         )}
-        <h2 className="text-3xl md:text-4xl font-bold flex items-center gap-3">
+        <h2 className="text-3xl md:text-4xl font-bold flex items-center gap-3 relative">
           {Icon && (
             <span
               className={`inline-flex items-center justify-center w-11 h-11 rounded-lg ${GLASS_ICON} text-accent`}
@@ -254,50 +355,180 @@ function SectionTitle({ icon: Icon, title, kicker }) {
 }
 
 // ───────────────────────────────────────────────────────────
-//  Global ambient background — single fixed layer so blobs
-//  blend continuously across sections instead of being cut at
-//  each section boundary (the "patah-patah" effect).
+//  Global ambient background
 // ───────────────────────────────────────────────────────────
 
 function AmbientLayer() {
-  return (
-    <div
-      aria-hidden="true"
-      className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
-    >
-      {/* Cyan glows */}
-      <div
-        className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-accent/25 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "12s" }}
-      />
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] bg-accent/12 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "15s" }}
-      />
-      <div
-        className="absolute -bottom-40 -right-40 w-[44rem] h-[44rem] bg-accent/22 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "10s" }}
-      />
+  const starField = {
+    backgroundImage: [
+      "radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,0.75), transparent 60%)",
+      "radial-gradient(1px 1px at 25% 35%, rgba(6,182,212,0.75), transparent 60%)",
+      "radial-gradient(2px 2px at 40% 22%, rgba(255,255,255,0.55), transparent 60%)",
+      "radial-gradient(1px 1px at 55% 45%, rgba(139,92,246,0.7), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 68% 38%, rgba(255,255,255,0.65), transparent 60%)",
+      "radial-gradient(1px 1px at 82% 15%, rgba(6,182,212,0.6), transparent 60%)",
+      "radial-gradient(2px 2px at 18% 55%, rgba(255,255,255,0.5), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 35% 65%, rgba(139,92,246,0.7), transparent 60%)",
+      "radial-gradient(1px 1px at 50% 75%, rgba(255,255,255,0.7), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 70% 60%, rgba(6,182,212,0.55), transparent 60%)",
+      "radial-gradient(1px 1px at 88% 50%, rgba(255,255,255,0.6), transparent 60%)",
+      "radial-gradient(2px 2px at 10% 75%, rgba(139,92,246,0.55), transparent 60%)",
+      "radial-gradient(1px 1px at 30% 85%, rgba(255,255,255,0.7), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 60% 90%, rgba(6,182,212,0.6), transparent 60%)",
+      "radial-gradient(1px 1px at 78% 80%, rgba(255,255,255,0.55), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 45% 50%, rgba(139,92,246,0.45), transparent 60%)",
+      "radial-gradient(1px 1px at 8% 40%, rgba(255,255,255,0.5), transparent 60%)",
+      "radial-gradient(1px 1px at 92% 70%, rgba(6,182,212,0.5), transparent 60%)",
+      "radial-gradient(1px 1px at 65% 8%, rgba(244,114,182,0.55), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 22% 62%, rgba(251,191,36,0.5), transparent 60%)",
+      "radial-gradient(1px 1px at 80% 42%, rgba(52,211,153,0.5), transparent 60%)",
+      "radial-gradient(1.5px 1.5px at 48% 8%, rgba(255,255,255,0.6), transparent 60%)",
+      "radial-gradient(1px 1px at 5% 95%, rgba(244,114,182,0.45), transparent 60%)",
+      "radial-gradient(1px 1px at 95% 30%, rgba(251,191,36,0.45), transparent 60%)",
+    ].join(", "),
+    backgroundSize: "100% 100%",
+    backgroundRepeat: "no-repeat",
+  };
 
-      {/* Violet glows */}
+  return (
+    <>
       <div
-        className="absolute -top-20 -right-40 w-[36rem] h-[36rem] bg-violet-500/20 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "13s" }}
-      />
+        aria-hidden="true"
+        className="fixed inset-0 -z-20 overflow-hidden pointer-events-none"
+      >
+        {/* ── Aurora diagonal streaks ── */}
+        <div className="absolute top-[18%] left-[-20%] w-[140%] h-40 bg-gradient-to-r from-transparent via-accent/12 to-transparent rotate-[-8deg] blur-2xl animate-pulse" style={{ animationDuration: "18s" }} />
+        <div className="absolute top-[55%] left-[-20%] w-[140%] h-32 bg-gradient-to-r from-transparent via-violet-500/14 to-transparent rotate-[6deg] blur-2xl animate-pulse" style={{ animationDuration: "22s" }} />
+        <div className="absolute top-[80%] left-[-20%] w-[140%] h-28 bg-gradient-to-r from-transparent via-rose-500/8 to-transparent rotate-[-4deg] blur-2xl animate-pulse" style={{ animationDuration: "26s" }} />
+        <div className="absolute top-[35%] left-[-10%] w-[120%] h-24 bg-gradient-to-r from-transparent via-amber-500/8 to-transparent rotate-[3deg] blur-2xl animate-pulse" style={{ animationDuration: "24s" }} />
+
+        {/* ── Light beams (vertical + diagonal) ── */}
+        <div
+          className="absolute top-0 left-[18%] w-px h-full bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent"
+          style={{ animation: "beam-shimmer 6s ease-in-out infinite" }}
+        />
+        <div
+          className="absolute top-0 right-[28%] w-px h-full bg-gradient-to-b from-transparent via-violet-400/25 to-transparent"
+          style={{ animation: "beam-shimmer 9s ease-in-out infinite 1.5s" }}
+        />
+        <div
+          className="absolute top-0 left-[62%] w-px h-full bg-gradient-to-b from-transparent via-rose-400/20 to-transparent"
+          style={{ animation: "beam-shimmer 7s ease-in-out infinite 3s" }}
+        />
+
+        {/* ── Floating geometric outlines (rotating) ── */}
+        <div className="absolute top-[14%] right-[6%] w-36 h-36 rounded-full border border-accent/15 animate-spin-slow" />
+        <div className="absolute top-[12%] right-[8%] w-20 h-20 rounded-full border border-accent/25" style={{ animation: "spin-slow 30s linear infinite reverse" }} />
+        <div className="absolute bottom-[18%] left-[4%] w-28 h-28 rounded-full border border-violet-500/20" style={{ animation: "spin-slow 55s linear infinite" }} />
+        <div className="absolute top-[42%] left-[8%] w-24 h-24 border border-cyan-400/15 rotate-45" style={{ animation: "spin-slow 40s linear infinite" }} />
+        <div className="absolute top-[68%] right-[10%] w-20 h-20 border border-violet-400/15 rotate-12" style={{ animation: "spin-slow 35s linear infinite reverse" }} />
+        <div className="absolute top-[8%] left-[25%] w-16 h-16 border border-amber-400/20 rotate-45" style={{ animation: "spin-slow 50s linear infinite" }} />
+        <div className="absolute bottom-[10%] right-[25%] w-12 h-12 rounded-full border-2 border-dashed border-emerald-400/30" style={{ animation: "spin-slow 45s linear infinite reverse" }} />
+
+        {/* Hexagon outline */}
+        <svg
+          className="absolute top-[20%] right-[40%] opacity-25"
+          style={{ animation: "spin-slow 60s linear infinite" }}
+          width="60" height="60" viewBox="0 0 60 60" fill="none"
+        >
+          <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" stroke="#06b6d4" strokeWidth="1.5" />
+        </svg>
+        <svg
+          className="absolute bottom-[28%] left-[15%] opacity-20"
+          style={{ animation: "spin-slow 70s linear infinite reverse" }}
+          width="50" height="50" viewBox="0 0 50 50" fill="none"
+        >
+          <polygon points="25,3 46,14 46,36 25,47 4,36 4,14" stroke="#8b5cf6" strokeWidth="1.5" />
+        </svg>
+
+        {/* Plus / cross shapes */}
+        <div className="absolute top-[55%] right-[42%] w-5 h-5 opacity-40">
+          <div className="absolute top-1/2 left-0 w-full h-px bg-rose-400 -translate-y-1/2" />
+          <div className="absolute left-1/2 top-0 h-full w-px bg-rose-400 -translate-x-1/2" />
+        </div>
+        <div className="absolute top-[30%] left-[45%] w-3 h-3 opacity-30">
+          <div className="absolute top-1/2 left-0 w-full h-px bg-emerald-400 -translate-y-1/2" />
+          <div className="absolute left-1/2 top-0 h-full w-px bg-emerald-400 -translate-x-1/2" />
+        </div>
+
+        {/* ── Big ambient color blobs (extended palette) ── */}
+        <div className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-accent/25 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "12s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] bg-accent/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "15s" }} />
+        <div className="absolute -bottom-40 -right-40 w-[44rem] h-[44rem] bg-accent/22 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "10s" }} />
+        <div className="absolute -top-20 -right-40 w-[36rem] h-[36rem] bg-violet-500/22 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "13s" }} />
+        <div className="absolute top-1/3 left-1/4 w-[28rem] h-[28rem] bg-violet-500/14 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "9s" }} />
+        <div className="absolute bottom-1/4 -left-32 w-[36rem] h-[36rem] bg-violet-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "14s" }} />
+        <div className="absolute top-[40%] right-[20%] w-[24rem] h-[24rem] bg-rose-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "16s" }} />
+        {/* New colors: amber, emerald, fuchsia */}
+        <div className="absolute top-[8%] left-[50%] w-[28rem] h-[28rem] bg-amber-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "17s" }} />
+        <div className="absolute bottom-[5%] left-[40%] w-[32rem] h-[32rem] bg-emerald-500/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "19s" }} />
+        <div className="absolute top-[60%] left-[5%] w-[26rem] h-[26rem] bg-fuchsia-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "20s" }} />
+
+        {/* ── Bokeh circles (large, soft, drifting) ── */}
+        <div className="absolute top-[25%] left-[20%] w-32 h-32 rounded-full bg-cyan-400/20 blur-2xl" style={{ animation: "drift 22s ease-in-out infinite" }} />
+        <div className="absolute top-[70%] right-[15%] w-40 h-40 rounded-full bg-violet-400/18 blur-2xl" style={{ animation: "drift-reverse 28s ease-in-out infinite" }} />
+        <div className="absolute bottom-[30%] left-[55%] w-28 h-28 rounded-full bg-rose-400/20 blur-2xl" style={{ animation: "drift-y 24s ease-in-out infinite" }} />
+        <div className="absolute top-[45%] right-[35%] w-24 h-24 rounded-full bg-emerald-400/15 blur-2xl" style={{ animation: "drift-y-reverse 26s ease-in-out infinite" }} />
+
+        {/* ── Floating code symbols (monospace, scattered) ── */}
+        {[
+          { sym: "</>", top: "8%", left: "4%", rot: -10, size: 22, color: "text-cyan-400/20" },
+          { sym: "{ }", top: "18%", right: "3%", rot: 8, size: 24, color: "text-violet-400/20" },
+          { sym: "01", top: "32%", left: "2%", rot: -6, size: 20, color: "text-amber-400/20" },
+          { sym: ";", top: "48%", right: "4%", rot: 12, size: 28, color: "text-rose-400/20" },
+          { sym: "=>", top: "62%", left: "3%", rot: 6, size: 22, color: "text-emerald-400/20" },
+          { sym: "[]", top: "75%", right: "2%", rot: -8, size: 26, color: "text-fuchsia-400/20" },
+          { sym: "0x", top: "88%", left: "5%", rot: 10, size: 20, color: "text-cyan-300/15" },
+          { sym: "::", top: "55%", left: "50%", rot: 0, size: 22, color: "text-violet-300/15" },
+        ].map((s, i) => (
+          <span
+            key={i}
+            aria-hidden
+            className={`absolute font-mono select-none pointer-events-none ${s.color}`}
+            style={{
+              top: s.top,
+              left: s.left,
+              right: s.right,
+              fontSize: s.size,
+              transform: `rotate(${s.rot}deg)`,
+              animation: `drift-y ${10 + i * 1.5}s ease-in-out infinite ${i * 0.4}s`,
+            }}
+          >
+            {s.sym}
+          </span>
+        ))}
+
+        {/* ── Dotted grid patches (small accent grids) ── */}
+        <div
+          className="absolute top-[15%] left-[40%] w-32 h-32 opacity-30"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(6,182,212,0.4) 1px, transparent 1.5px)",
+            backgroundSize: "12px 12px",
+          }}
+        />
+        <div
+          className="absolute bottom-[15%] right-[35%] w-32 h-32 opacity-25"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(139,92,246,0.4) 1px, transparent 1.5px)",
+            backgroundSize: "14px 14px",
+          }}
+        />
+
+        {/* ── Star/dot particle field (top layer) ── */}
+        <div className="absolute inset-0 animate-pulse" style={starField} />
+      </div>
+
+      {/* Layer 2: subtle noise grain on top of everything */}
       <div
-        className="absolute top-1/3 left-1/4 w-[28rem] h-[28rem] bg-violet-500/12 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "9s" }}
+        aria-hidden="true"
+        className="fixed inset-0 -z-10 pointer-events-none bg-noise mix-blend-overlay"
       />
-      <div
-        className="absolute bottom-1/4 -left-32 w-[36rem] h-[36rem] bg-violet-500/18 rounded-full blur-3xl animate-pulse"
-        style={{ animationDuration: "14s" }}
-      />
-    </div>
+    </>
   );
 }
 
 // ───────────────────────────────────────────────────────────
-//  Components
+//  Navbar
 // ───────────────────────────────────────────────────────────
 
 function Navbar() {
@@ -310,8 +541,7 @@ function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#hero" className="font-bold text-lg tracking-tight">
-          <span className="text-white">Nandana</span>
-          <span className="text-accent">.</span>
+          <span className="text-white">Welcome</span>
         </a>
         <ul className="hidden md:flex items-center gap-8 text-sm text-slate-300">
           {NAV_LINKS.map((l) => (
@@ -338,95 +568,175 @@ function Navbar() {
   );
 }
 
+// ───────────────────────────────────────────────────────────
+//  Hero
+// ───────────────────────────────────────────────────────────
+
 function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center pt-24 pb-16"
+      className="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden"
     >
       <div className="absolute inset-0 bg-grid pointer-events-none" />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={stagger(0.1)}
-          className="max-w-3xl"
+      {/* Floating code symbols */}
+      {[
+        { sym: "</>", top: "15%", left: "8%", rot: -12, size: 18 },
+        { sym: "{ }", top: "70%", left: "12%", rot: 8, size: 20 },
+        { sym: "01", top: "25%", right: "14%", rot: 6, size: 22 },
+        { sym: ";", top: "60%", right: "8%", rot: -8, size: 26 },
+        { sym: "< />", top: "80%", right: "20%", rot: 12, size: 18 },
+      ].map((s, i) => (
+        <span
+          key={i}
+          aria-hidden
+          className="absolute font-mono text-cyan-300/15 select-none pointer-events-none animate-float-soft"
+          style={{
+            top: s.top,
+            left: s.left,
+            right: s.right,
+            fontSize: s.size,
+            "--rot": `${s.rot}deg`,
+            animationDelay: `${i * 0.6}s`,
+            animationDuration: `${5 + i}s`,
+          }}
         >
+          {s.sym}
+        </span>
+      ))}
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid md:grid-cols-[1fr_auto] gap-12 items-center">
+          {/* Left: text content */}
           <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${GLASS_PILL} text-sm text-slate-300 mb-6`}
+            initial="hidden"
+            animate="show"
+            variants={stagger(0.1)}
+            className="max-w-2xl"
           >
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            Welcome to my portfolio
-          </motion.div>
-
-          <motion.h1
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            style={{ animation: "float 6s ease-in-out infinite" }}
-            className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight"
-          >
-            {PROFILE.name}
-          </motion.h1>
-
-          <motion.p
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="mt-4 text-lg md:text-xl text-slate-300 font-medium"
-          >
-            {PROFILE.title}
-          </motion.p>
-
-          <motion.p
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="mt-6 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed"
-          >
-            {PROFILE.bio}
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="mt-8 flex flex-wrap gap-3"
-          >
-            {PROFILE.focus.map((f) => (
-              <span
-                key={f}
-                className={`px-3 py-1.5 text-xs sm:text-sm rounded-full ${GLASS_PILL} text-slate-200`}
-              >
-                {f}
+            {/* Status badge */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${GLASS_PILL} text-sm text-slate-300 mb-6`}
+            >
+              <span className="relative flex w-2.5 h-2.5">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-emerald-400" />
               </span>
-            ))}
+              Available for opportunities
+            </motion.div>
+
+            <motion.h1
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              style={{ animation: "float 6s ease-in-out infinite" }}
+              className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight"
+            >
+              <span className="bg-gradient-to-r from-cyan-300 via-violet-300 to-rose-300 bg-clip-text text-transparent animate-gradient">
+                {PROFILE.name}
+              </span>
+            </motion.h1>
+
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="mt-4 text-lg md:text-xl text-slate-300 font-medium"
+            >
+              {PROFILE.title}
+            </motion.p>
+
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="mt-4 text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed"
+            >
+              {PROFILE.bio}
+            </motion.p>
+
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.6 }}
+              className="mt-10 flex flex-wrap items-center gap-4"
+            >
+              {/* Primary CTA — filled cyan with sliding shine + bouncing arrow */}
+              <motion.a
+                href="#projects"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className="group relative inline-flex items-center gap-3 pl-7 pr-6 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-400 text-slate-950 font-bold shadow-xl shadow-cyan-500/40 hover:shadow-cyan-400/60 transition-shadow overflow-hidden"
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                />
+                <span className="relative">View projects</span>
+                <span
+                  className="relative flex items-center"
+                  style={{ animation: "arrow-bounce 1.6s ease-in-out infinite" }}
+                >
+                  <ArrowDown size={18} strokeWidth={2.5} />
+                </span>
+              </motion.a>
+            </motion.div>
           </motion.div>
 
+          {/* Right: avatar with orbiting ring */}
           <motion.div
-            variants={fadeUp}
-            transition={{ duration: 0.6 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="hidden md:flex relative w-72 h-72 items-center justify-center mx-auto"
           >
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent hover:bg-accent-hover text-slate-950 font-semibold shadow-lg shadow-accent/30 transition-colors"
-            >
-              View projects <ArrowDown size={18} />
-            </motion.a>
-            <motion.a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg ${GLASS_BTN_SECONDARY} font-semibold transition-colors`}
-            >
-              <WhatsAppIcon size={18} /> Contact me
-            </motion.a>
+            {/* Outer rotating dashed ring */}
+            <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/30 animate-spin-slow" />
+            {/* Inner rotating ring */}
+            <div
+              className="absolute inset-3 rounded-full border border-violet-400/20"
+              style={{ animation: "spin-slow 25s linear infinite reverse" }}
+            />
+            {/* Avatar circle */}
+            <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-cyan-500 via-violet-500 to-rose-500 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
+              <div className="absolute inset-1 rounded-full bg-slate-950 flex items-center justify-center">
+                <span className="text-6xl font-extrabold bg-gradient-to-br from-cyan-300 via-violet-300 to-rose-300 bg-clip-text text-transparent">
+                  {PROFILE.initials}
+                </span>
+              </div>
+            </div>
+            {/* Orbiting dots */}
+            {[
+              { icon: Code2, angle: 0, color: "text-cyan-300", bg: "bg-cyan-500/20 border-cyan-400/40" },
+              { icon: Brain, angle: 90, color: "text-violet-300", bg: "bg-violet-500/20 border-violet-400/40" },
+              { icon: BarChart3, angle: 180, color: "text-rose-300", bg: "bg-rose-500/20 border-rose-400/40" },
+              { icon: DatabaseIcon, angle: 270, color: "text-emerald-300", bg: "bg-emerald-500/20 border-emerald-400/40" },
+            ].map((o, i) => {
+              const rad = (o.angle * Math.PI) / 180;
+              const r = 130;
+              const x = Math.cos(rad) * r;
+              const y = Math.sin(rad) * r;
+              const Icon = o.icon;
+              return (
+                <div
+                  key={i}
+                  className={`absolute w-10 h-10 rounded-full ${o.bg} border backdrop-blur-md flex items-center justify-center ${o.color}`}
+                  style={{
+                    transform: `translate(${x}px, ${y}px)`,
+                    animation: `spin-slow ${20 + i * 4}s linear infinite ${i % 2 ? "reverse" : ""}`,
+                  }}
+                >
+                  <div
+                    style={{
+                      animation: `spin-slow ${20 + i * 4}s linear infinite ${i % 2 ? "" : "reverse"}`,
+                    }}
+                  >
+                    <Icon size={18} />
+                  </div>
+                </div>
+              );
+            })}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
       <style>{`
@@ -439,42 +749,88 @@ function Hero() {
   );
 }
 
+function StatsBar() {
+  return (
+    <section className="relative py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Reveal>
+          <div className={`rounded-2xl ${GLASS_CARD} p-6 md:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4`}>
+            {STATS.map((s) => (
+              <StatItem key={s.label} target={s.target} suffix={s.suffix} label={s.label} color={s.color} />
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function StatItem({ target, suffix, label, color }) {
+  const [ref, value] = useCounter(target);
+  const theme = COLOR_THEME[color];
+  return (
+    <div ref={ref} className="text-center md:text-left">
+      <div className={`text-3xl md:text-4xl font-extrabold ${theme.text} tabular-nums`}>
+        {value}
+        <span className="text-xl">{suffix}</span>
+      </div>
+      <div className="text-xs uppercase tracking-widest text-slate-500 mt-1">{label}</div>
+    </div>
+  );
+}
+
 function About() {
   return (
     <section id="about" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={Sparkles} kicker="About me" title="Get to know me" />
+        <SectionHeading number="01" icon={Sparkles} kicker="About me" title="Get to know me" />
 
         <div className="grid md:grid-cols-3 gap-8 items-start">
           <Reveal className="md:col-span-2 space-y-5 text-slate-300 leading-relaxed text-base md:text-lg">
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${GLASS_PILL} text-sm text-slate-300`}>
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400" />
+              </span>
+              Open to internship · Based in Indonesia
+            </div>
             {ABOUT_PARAGRAPHS.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </Reveal>
 
           <Reveal delay={0.15} className="md:col-span-1">
-            <div className={`rounded-2xl ${GLASS_CARD} p-6`}>
-              <h3 className="text-sm uppercase tracking-widest text-accent font-semibold mb-4">
-                Quick facts
-              </h3>
-              <ul className="space-y-3 text-sm text-slate-300">
-                <li className="flex items-start gap-3">
-                  <MapPin size={16} className="mt-1 text-accent shrink-0" />
-                  <span>Based in Indonesia</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <GraduationCap size={16} className="mt-1 text-accent shrink-0" />
-                  <span>CS — BINUS University</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Cpu size={16} className="mt-1 text-accent shrink-0" />
-                  <span>AI / ML & Software Engineering</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <ChevronRight size={16} className="mt-1 text-accent shrink-0" />
-                  <span>Open to internships & collaborations</span>
-                </li>
-              </ul>
+            <div className="relative p-[2px] rounded-2xl bg-gradient-to-br from-cyan-400/40 via-violet-500/40 to-rose-500/40">
+              <div
+                className="absolute inset-0 rounded-2xl opacity-50"
+                style={{
+                  background: "conic-gradient(from 0deg, #06b6d4, #8b5cf6, #f43f5e, #06b6d4)",
+                  animation: "conic-spin 8s linear infinite",
+                }}
+              />
+              <div className={`relative rounded-2xl bg-slate-950/90 backdrop-blur-xl p-6 m-[1px]`}>
+                <h3 className="text-sm uppercase tracking-widest text-accent font-semibold mb-4 flex items-center gap-2">
+                  <Zap size={14} /> Quick facts
+                </h3>
+                <ul className="space-y-3 text-sm text-slate-300">
+                  <li className="flex items-start gap-3">
+                    <MapPin size={16} className="mt-1 text-accent shrink-0" />
+                    <span>Based in Indonesia</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <GraduationCap size={16} className="mt-1 text-accent shrink-0" />
+                    <span>Computer Science BINUS University</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Cpu size={16} className="mt-1 text-accent shrink-0" />
+                    <span>Software Engineering</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Activity size={16} className="mt-1 text-emerald-400 shrink-0 animate-pulse" />
+                    <span className="text-emerald-300">Currently studying</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -487,7 +843,7 @@ function Skills() {
   return (
     <section id="skills" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={Layers} kicker="Skills" title="What I work with" />
+        <SectionHeading number="02" icon={Layers} kicker="Skills" title="What I work with" />
 
         <motion.div
           initial="hidden"
@@ -496,34 +852,44 @@ function Skills() {
           variants={stagger(0.08)}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {SKILLS.map((s) => (
-            <motion.div
-              key={s.title}
-              variants={fadeUp}
-              transition={{ duration: 0.6 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className={`group rounded-2xl ${GLASS_CARD} p-6 hover:border-accent/40 transition-colors`}
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className={`inline-flex items-center justify-center w-10 h-10 rounded-lg ${GLASS_ICON} text-accent group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent transition-colors`}
-                >
-                  <s.icon size={20} />
-                </span>
-                <h3 className="font-semibold text-lg">{s.title}</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {s.items.map((item) => (
-                  <span
-                    key={item}
-                    className={`px-2.5 py-1 text-xs rounded-md ${GLASS_PILL} text-slate-300`}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+          {SKILLS.map((s) => {
+            const theme = COLOR_THEME[s.color];
+            return (
+              <motion.div
+                key={s.title}
+                variants={fadeUp}
+                transition={{ duration: 0.6 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className={`group relative rounded-2xl ${GLASS_CARD} p-6 hover:border-white/20 transition-colors overflow-hidden`}
+              >
+                {/* Soft glow disc behind icon */}
+                <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl ${theme.glow} opacity-40 pointer-events-none`} />
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="relative">
+                      <div className={`absolute inset-0 rounded-lg blur-md ${theme.glow} opacity-60 group-hover:opacity-100 transition-opacity`} />
+                      <span
+                        className={`relative inline-flex items-center justify-center w-10 h-10 rounded-lg ${theme.bg} ${theme.border} border ${theme.text}`}
+                      >
+                        <s.icon size={20} />
+                      </span>
+                    </div>
+                    <h3 className={`font-semibold text-lg ${theme.text}`}>{s.title}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {s.items.map((item) => (
+                      <span
+                        key={item}
+                        className={`px-2.5 py-1 text-xs rounded-md border bg-white/[0.03] backdrop-blur-sm ${theme.chip} transition-colors`}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
@@ -534,7 +900,7 @@ function Projects() {
   return (
     <section id="projects" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={Layers} kicker="Projects" title="Selected work" />
+        <SectionHeading number="03" icon={Layers} kicker="Projects" title="Selected work" />
 
         <motion.div
           initial="hidden"
@@ -544,67 +910,7 @@ function Projects() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {PROJECTS.map((p) => (
-            <motion.article
-              key={p.title}
-              variants={fadeUp}
-              transition={{ duration: 0.6 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className={`relative overflow-hidden rounded-2xl ${GLASS_CARD} p-6 hover:border-accent/40 transition-colors group`}
-            >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60 pointer-events-none`}
-              />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-5">
-                  <span
-                    className={`inline-flex items-center justify-center w-11 h-11 rounded-lg ${GLASS_ICON} text-accent group-hover:bg-accent group-hover:text-slate-950 group-hover:border-accent transition-colors`}
-                  >
-                    <p.icon size={20} />
-                  </span>
-                  <span
-                    className={`text-[10px] uppercase tracking-widest text-slate-300 ${GLASS_PILL} rounded-full px-2.5 py-1`}
-                  >
-                    {p.role}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold mb-1">{p.title}</h3>
-                <p className="text-sm text-slate-400 mb-4">{p.subtitle}</p>
-                <p className="text-sm text-slate-300 leading-relaxed mb-5">
-                  {p.description}
-                </p>
-
-                <div className="mb-4">
-                  <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2">
-                    Tech
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.tech.map((t) => (
-                      <span
-                        key={t}
-                        className={`px-2 py-0.5 text-[11px] rounded ${GLASS_PILL} text-slate-300`}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2">
-                    Focus
-                  </p>
-                  <ul className="text-xs text-slate-300 space-y-1">
-                    {p.focus.map((f) => (
-                      <li key={f} className="flex items-center gap-1.5">
-                        <ChevronRight size={12} className="text-accent" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </motion.article>
+            <ProjectCard key={p.title} project={p} />
           ))}
         </motion.div>
       </div>
@@ -612,11 +918,90 @@ function Projects() {
   );
 }
 
+function ProjectCard({ project }) {
+  const theme = COLOR_THEME[project.color];
+  return (
+    <motion.article className="group relative">
+      {/* Animated conic gradient border */}
+      <div className="relative p-[1.5px] rounded-2xl overflow-hidden">
+        <div
+          aria-hidden
+          className={`absolute inset-0 bg-gradient-to-br ${project.conic} opacity-50 animate-conic-spin`}
+          style={{ filter: "blur(0.5px)" }}
+        />
+        <div className={`relative rounded-2xl ${GLASS_CARD} p-6 h-full`}>
+          {/* Big number watermark */}
+          <span
+            aria-hidden
+            className="absolute top-2 right-4 font-mono text-7xl font-black text-white/[0.05] tracking-tighter select-none pointer-events-none"
+          >
+            {project.number}
+          </span>
+
+          <div className="relative">
+            <div className="flex items-center justify-between mb-5">
+              <div className="relative">
+                <div className={`absolute inset-0 rounded-lg blur-md ${theme.glow} opacity-40`} />
+                <span
+                  className={`relative inline-flex items-center justify-center w-11 h-11 rounded-lg ${theme.bg} ${theme.border} border ${theme.text}`}
+                >
+                  <project.icon size={20} />
+                </span>
+              </div>
+              <span
+                className={`text-[10px] uppercase tracking-widest text-slate-300 ${GLASS_PILL} rounded-full px-2.5 py-1`}
+              >
+                {project.role}
+              </span>
+            </div>
+
+            <h3 className={`text-xl font-bold mb-1 ${theme.text}`}>{project.title}</h3>
+            <p className="text-sm text-slate-400 mb-4">{project.subtitle}</p>
+            <p className="text-sm text-slate-300 leading-relaxed mb-5">
+              {project.description}
+            </p>
+
+            <div className="mb-4">
+              <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2">
+                Tech
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.tech.map((t) => (
+                  <span
+                    key={t}
+                    className={`px-2 py-0.5 text-[11px] rounded border bg-white/[0.03] backdrop-blur-sm ${theme.chip}`}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-5">
+              <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2">
+                Focus
+              </p>
+              <ul className="text-xs text-slate-300 space-y-1">
+                {project.focus.map((f) => (
+                  <li key={f} className="flex items-center gap-1.5">
+                    <ChevronRight size={12} className={theme.text} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
 function Experience() {
   return (
     <section id="experience" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={Briefcase} kicker="Experience" title="Beyond the code" />
+        <SectionHeading number="04" icon={Briefcase} kicker="Experience" title="Beyond the code" />
 
         <motion.div
           initial="hidden"
@@ -630,19 +1015,23 @@ function Experience() {
               key={e.title}
               variants={fadeUp}
               transition={{ duration: 0.6 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className={`rounded-2xl ${GLASS_CARD} p-6 hover:border-accent/40 transition-colors`}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className={`relative rounded-2xl ${GLASS_CARD} p-6 hover:border-rose-400/40 transition-colors overflow-hidden`}
             >
-              <span
-                className={`inline-flex items-center justify-center w-11 h-11 rounded-lg ${GLASS_ICON} text-accent mb-5`}
-              >
-                <e.icon size={20} />
-              </span>
-              <h3 className="font-bold text-lg mb-1">{e.title}</h3>
-              <p className="text-sm text-slate-400 mb-3">{e.role}</p>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                {e.description}
-              </p>
+              <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl bg-rose-500/30 opacity-40 pointer-events-none" />
+              <div className="relative">
+                <div className="relative inline-block mb-5">
+                  <div className="absolute inset-0 rounded-lg blur-md bg-rose-500/30 opacity-60" />
+                  <span className="relative inline-flex items-center justify-center w-11 h-11 rounded-lg bg-rose-500/15 border border-rose-400/30 text-rose-300">
+                    <e.icon size={20} />
+                  </span>
+                </div>
+                <h3 className="font-bold text-lg mb-1 text-rose-200">{e.title}</h3>
+                <p className="text-sm text-slate-400 mb-3">{e.role}</p>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  {e.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -655,10 +1044,10 @@ function Education() {
   return (
     <section id="education" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={GraduationCap} kicker="Education" title="Academic journey" />
+        <SectionHeading number="05" icon={GraduationCap} kicker="Education" title="Academic journey" />
 
         <div className="relative">
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-white/20 to-white/10" />
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-white/10 via-cyan-400/20 to-white/10" />
           <motion.ol
             initial="hidden"
             whileInView="show"
@@ -680,7 +1069,13 @@ function Education() {
                     i % 2 === 0 ? "md:text-right md:pr-8" : "md:pl-8"
                   }`}
                 >
-                  <div className="absolute left-4 md:left-1/2 top-2 -translate-x-1/2 w-3 h-3 rounded-full bg-accent ring-4 ring-slate-950 shadow-[0_0_0_2px_rgba(6,182,212,0.4)]" />
+                  <div className="absolute left-4 md:left-1/2 top-2 -translate-x-1/2">
+                    <div className="relative w-3 h-3 rounded-full bg-accent">
+                      {ed.current && (
+                        <span className="absolute inset-0 rounded-full bg-accent animate-ping opacity-60" />
+                      )}
+                    </div>
+                  </div>
                   <div
                     className={`inline-flex items-center justify-center w-10 h-10 rounded-lg ${GLASS_ICON} text-accent mb-3`}
                   >
@@ -690,6 +1085,12 @@ function Education() {
                   <p className="text-slate-400 text-sm">{ed.detail}</p>
                   <p className="text-xs text-accent mt-1 inline-flex items-center gap-1">
                     <Calendar size={12} /> {ed.period}
+                    {ed.current && (
+                      <span className="ml-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        Currently studying
+                      </span>
+                    )}
                   </p>
                 </div>
                 <div className="hidden md:block" />
@@ -703,14 +1104,23 @@ function Education() {
 }
 
 function Interests() {
+  const items = [
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Computer Vision",
+    "NLP",
+    "LLM",
+    "Data Analysis",
+    "Software Engineering",
+  ];
   return (
     <section id="interests" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle icon={Heart} kicker="Interests" title="What excites me" />
+        <SectionHeading number="06" icon={Heart} kicker="Interests" title="What excites me" />
 
         <Reveal>
-          <div className="flex flex-wrap gap-3">
-            {INTERESTS.map((i) => (
+          <div className="flex flex-wrap gap-3 justify-center">
+            {items.map((i) => (
               <motion.span
                 key={i}
                 whileHover={{ scale: 1.05 }}
@@ -730,60 +1140,84 @@ function Contact() {
   return (
     <section id="contact" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <div
-            className={`relative overflow-hidden rounded-3xl ${GLASS_CARD} p-8 md:p-14`}
-          >
-            <div className="absolute -top-24 -right-24 w-72 h-72 bg-accent/30 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="relative">
-              <p className="text-accent text-sm font-semibold tracking-[0.2em] uppercase mb-3">
-                Contact
-              </p>
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-                Let's Connect
-              </h2>
-              <p className="text-slate-300 text-base md:text-lg max-w-2xl mb-8 leading-relaxed">
-                Saya terbuka untuk diskusi tentang teknologi, kolaborasi proyek,
-                atau peluang internship. Cara tercepat untuk menghubungi saya
-                adalah lewat WhatsApp.
-              </p>
+        <SectionHeading number="07" icon={Trophy} kicker="Contact" title="Let's Connect" />
 
-              <div className="flex flex-wrap gap-3">
-                <motion.a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#25D366] hover:bg-[#1ebe5b] text-white font-semibold shadow-lg shadow-[#25D366]/30 transition-colors"
-                >
-                  <WhatsAppIcon size={18} /> Chat on WhatsApp
-                </motion.a>
-                <motion.a
-                  href="mailto:nandana@example.com"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`inline-flex items-center gap-2 px-5 py-3 rounded-lg ${GLASS_BTN_SECONDARY} font-semibold transition-colors`}
-                >
-                  <Mail size={18} /> Email
-                </motion.a>
-                <motion.a
-                  href="https://www.linkedin.com/in/nandana-fawaz-al-aziz-23b1b3326/"
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`inline-flex items-center gap-2 px-5 py-3 rounded-lg ${GLASS_BTN_SECONDARY} font-semibold transition-colors`}
-                >
-                  <LinkedInIcon size={18} /> LinkedIn
-                </motion.a>
+        <Reveal>
+          <div className="relative">
+            <div className={`relative overflow-hidden rounded-3xl ${GLASS_CARD} p-8 md:p-14`}>
+              {/* Corner brackets */}
+              <CornerBrackets />
+
+              <div className="absolute -top-24 -right-24 w-72 h-72 bg-accent/30 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-sm mb-4">
+                  <span className="relative flex w-2 h-2">
+                    <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                    <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400" />
+                  </span>
+                  Currently online · Average reply: ~2 hours
+                </div>
+
+                <h2 className="text-3xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                  Let's build something together
+                </h2>
+                <p className="text-slate-300 text-base md:text-lg max-w-2xl mb-8 leading-relaxed">
+                  Saya terbuka untuk diskusi tentang teknologi, kolaborasi proyek,
+                  atau peluang internship. Cara tercepat untuk menghubungi saya
+                  adalah lewat WhatsApp.
+                </p>
+
+                <div className="flex flex-wrap gap-3">
+                  <motion.a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#25D366] hover:bg-[#1ebe5b] text-white font-semibold shadow-lg shadow-[#25D366]/30 transition-colors"
+                  >
+                    <WhatsAppIcon size={18} /> Chat on WhatsApp
+                  </motion.a>
+                  <motion.a
+                    href="mailto:nandafawaz07@gmail.com"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`inline-flex items-center gap-2 px-5 py-3 rounded-lg ${GLASS_BTN_SECONDARY} font-semibold transition-colors`}
+                  >
+                    <Mail size={18} /> Email
+                  </motion.a>
+                  <motion.a
+                    href="https://www.linkedin.com/in/nandana-fawaz-al-aziz-23b1b3326/"
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`inline-flex items-center gap-2 px-5 py-3 rounded-lg ${GLASS_BTN_SECONDARY} font-semibold transition-colors`}
+                  >
+                    <LinkedInIcon size={18} /> LinkedIn
+                  </motion.a>
+                </div>
               </div>
             </div>
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function CornerBrackets() {
+  const cls =
+    "absolute w-6 h-6 border-accent/40 pointer-events-none";
+  return (
+    <>
+      <span className={`${cls} top-3 left-3 border-t-2 border-l-2 rounded-tl-md`} />
+      <span className={`${cls} top-3 right-3 border-t-2 border-r-2 rounded-tr-md`} />
+      <span className={`${cls} bottom-3 left-3 border-b-2 border-l-2 rounded-bl-md`} />
+      <span className={`${cls} bottom-3 right-3 border-b-2 border-r-2 rounded-br-md`} />
+    </>
   );
 }
 
@@ -801,10 +1235,6 @@ function Footer() {
   );
 }
 
-// ───────────────────────────────────────────────────────────
-//  App
-// ───────────────────────────────────────────────────────────
-
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
@@ -812,6 +1242,7 @@ export default function App() {
       <Navbar />
       <main className="relative">
         <Hero />
+        <StatsBar />
         <About />
         <Skills />
         <Projects />
