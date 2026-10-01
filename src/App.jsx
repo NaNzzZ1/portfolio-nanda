@@ -39,6 +39,12 @@ const WHATSAPP_TEXT = encodeURIComponent(
   "Halo Nandana, saya ingin berdiskusi tentang teknologi / kolaborasi proyek."
 );
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_TEXT}`;
+const EMAIL_ADDRESS = "nandafawaz07@gmail.com";
+const EMAIL_URL = `https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(
+  EMAIL_ADDRESS
+)}&su=${encodeURIComponent("Halo dari portfolio kamu")}&body=${encodeURIComponent(
+  "Hi Nandana,\n\n"
+)}`;
 
 function WhatsAppIcon({ size = 18, className = "" }) {
   return (
@@ -85,7 +91,7 @@ const PROFILE = {
   //   avatar: "https://i.imgur.com/xxxxx.jpg"
   // Leave as null to keep the gradient initials avatar.
   avatar: null,
-  title: "3rd-year CS Student - BINUS University",
+  title: "3rd-year CS Undergraduate BINUS University",
   bio: "Mahasiswa tahun ke-3 Computer Science BINUS University yang tertarik pada AI, Machine Learning, Data Analysis, dan Software Development.",
 };
 
@@ -1195,7 +1201,9 @@ function Contact() {
                     <WhatsAppIcon size={18} /> Chat on WhatsApp
                   </motion.a>
                   <motion.a
-                    href="mailto:nandafawaz07@gmail.com"
+                    href={EMAIL_URL}
+                    target="_blank"
+                    rel="noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-lg ${GLASS_PILL} text-white font-semibold hover:bg-white/[0.08] transition-colors text-sm md:text-base`}
