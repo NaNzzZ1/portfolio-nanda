@@ -7,48 +7,43 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-slate-950 text-white font-sans antialiased;
-    background-image:
-      radial-gradient(circle at 12% 8%, rgba(6, 182, 212, 0.22) 0%, transparent 40%),
-      radial-gradient(circle at 92% 28%, rgba(139, 92, 246, 0.16) 0%, transparent 45%),
-      radial-gradient(circle at 50% 55%, rgba(6, 182, 212, 0.08) 0%, transparent 55%),
-      radial-gradient(circle at 8% 78%, rgba(139, 92, 246, 0.12) 0%, transparent 45%),
-      radial-gradient(circle at 88% 92%, rgba(6, 182, 212, 0.14) 0%, transparent 45%);
-    background-attachment: scroll;
-    background-size: 100% 100%;
+    @apply text-white font-sans antialiased;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    background-attachment: fixed;
     min-height: 100vh;
   }
   ::selection {
-    @apply bg-accent/30 text-white;
+    @apply bg-white/30 text-white;
   }
 }
 
-@layer utilities {
-  .text-accent {
-    color: #06b6d4;
-  }
-  .bg-accent {
-    background-color: #06b6d4;
-  }
-  .border-accent {
-    border-color: #06b6d4;
-  }
+/* Subtle global radial highlight */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+      ellipse 80% 50% at 20% 0%,
+      rgba(255, 255, 255, 0.04),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 20%,
+      rgba(255, 255, 255, 0.03),
+      transparent 60%
+    );
 }
 
-/* Subtle grid background for hero */
+/* Subtle grid (kept for any future use) */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(6, 182, 212, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-}
-
-/* SVG noise texture overlay for tactile grain */
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.025;
 }
 
 /* Animated gradient background position */
@@ -61,7 +56,19 @@
   animation: gradient-pan 6s ease-in-out infinite;
 }
 
-/* Slow conic spin for project card borders */
+/* Marquee infinite scroll */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee 40s linear infinite reverse;
+}
+
+/* Slow conic spin (kept for future use) */
 @keyframes conic-spin {
   to { transform: rotate(360deg); }
 }
@@ -69,7 +76,7 @@
   animation: conic-spin 14s linear infinite;
 }
 
-/* Floating code symbols */
+/* Floating */
 @keyframes float-soft {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
   50% { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
@@ -78,7 +85,7 @@
   animation: float-soft 6s ease-in-out infinite;
 }
 
-/* Rotating dashed ring around avatar */
+/* Slow spin (kept) */
 @keyframes spin-slow {
   to { transform: rotate(360deg); }
 }
@@ -86,13 +93,13 @@
   animation: spin-slow 30s linear infinite;
 }
 
-/* Bouncing arrow on primary CTA */
+/* Bouncing arrow */
 @keyframes arrow-bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(3px); }
 }
 
-/* Slow horizontal drift for bokeh / particles */
+/* Drift (kept) */
 @keyframes drift {
   0%, 100% { transform: translateX(0); }
   50% { transform: translateX(40px); }
@@ -102,7 +109,7 @@
   50% { transform: translateX(-40px); }
 }
 
-/* Slow vertical drift */
+/* Drift Y */
 @keyframes drift-y {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-30px); }
@@ -116,16 +123,4 @@
 @keyframes beam-shimmer {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.8; }
-}
-
-/* Marquee infinite scroll */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-.animate-marquee-reverse {
-  animation: marquee 40s linear infinite reverse;
 }

@@ -175,46 +175,47 @@ const SKILLS = [
   },
 ];
 
+// Neutral theme (no rainbow, no accent) — matches rifqi.dev dark elegant
 const COLOR_THEME = {
   cyan: {
-    text: "text-cyan-300",
-    bg: "bg-cyan-500/15",
-    border: "border-cyan-400/30",
-    ring: "ring-cyan-400/40",
-    glow: "bg-cyan-500/30",
-    soft: "text-cyan-200/70",
+    text: "text-white",
+    bg: "bg-white/[0.04]",
+    border: "border-white/10",
+    ring: "ring-white/20",
+    glow: "bg-white/[0.06]",
+    soft: "text-white/70",
   },
   violet: {
-    text: "text-violet-300",
-    bg: "bg-violet-500/15",
-    border: "border-violet-400/30",
-    ring: "ring-violet-400/40",
-    glow: "bg-violet-500/30",
-    soft: "text-violet-200/70",
+    text: "text-white",
+    bg: "bg-white/[0.04]",
+    border: "border-white/10",
+    ring: "ring-white/20",
+    glow: "bg-white/[0.06]",
+    soft: "text-white/70",
   },
   rose: {
-    text: "text-rose-300",
-    bg: "bg-rose-500/15",
-    border: "border-rose-400/30",
-    ring: "ring-rose-400/40",
-    glow: "bg-rose-500/30",
-    soft: "text-rose-200/70",
+    text: "text-white",
+    bg: "bg-white/[0.04]",
+    border: "border-white/10",
+    ring: "ring-white/20",
+    glow: "bg-white/[0.06]",
+    soft: "text-white/70",
   },
   emerald: {
-    text: "text-emerald-300",
-    bg: "bg-emerald-500/15",
-    border: "border-emerald-400/30",
-    ring: "ring-emerald-400/40",
-    glow: "bg-emerald-500/30",
-    soft: "text-emerald-200/70",
+    text: "text-white",
+    bg: "bg-white/[0.04]",
+    border: "border-white/10",
+    ring: "ring-white/20",
+    glow: "bg-white/[0.06]",
+    soft: "text-white/70",
   },
   amber: {
-    text: "text-amber-300",
-    bg: "bg-amber-500/15",
-    border: "border-amber-400/30",
-    ring: "ring-amber-400/40",
-    glow: "bg-amber-500/30",
-    soft: "text-amber-200/70",
+    text: "text-white",
+    bg: "bg-white/[0.04]",
+    border: "border-white/10",
+    ring: "ring-white/20",
+    glow: "bg-white/[0.06]",
+    soft: "text-white/70",
   },
 };
 
@@ -225,7 +226,7 @@ const PROJECTS = [
     subtitle: "Deep Learning for Medical Imaging",
     icon: ScanLine,
     color: "cyan",
-    conic: "from-cyan-400 via-violet-500 to-rose-500",
+    conic: "from-white/20 via-white/10 to-white/20",
     description:
       "Sistem deep learning untuk mendeteksi Tuberculosis dari citra X-ray paru secara otomatis menggunakan arsitektur CNN modern dengan evaluasi model komprehensif.",
     meta: {
@@ -247,7 +248,7 @@ const PROJECTS = [
     subtitle: "Venue & Event Organizer Discovery",
     icon: Smartphone,
     color: "violet",
-    conic: "from-violet-400 via-cyan-500 to-emerald-500",
+    conic: "from-white/20 via-white/10 to-white/20",
     description:
       "Aplikasi mobile untuk menemukan venue dan event organizer terdekat dengan tampilan antarmuka yang intuitif dan sistem rekomendasi personal.",
     meta: {
@@ -268,7 +269,7 @@ const PROJECTS = [
     subtitle: "Implicit Toxicity in Social Media",
     icon: MessageSquareWarning,
     color: "rose",
-    conic: "from-rose-400 via-amber-500 to-cyan-500",
+    conic: "from-white/20 via-white/10 to-white/20",
     description:
       "Riset deteksi toksisitas implisit pada media sosial menggunakan pendekatan NLP dan Large Language Model dengan contextual augmentation.",
     meta: {
@@ -305,15 +306,15 @@ const STATS = [
 ];
 
 // ───────────────────────────────────────────────────────────
-//  Glass design tokens
+//  Glass design tokens (neutral / monochrome)
 // ───────────────────────────────────────────────────────────
 
 const GLASS_CARD =
-  "bg-white/[0.04] backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]";
+  "bg-white/[0.03] backdrop-blur-xl backdrop-saturate-150 border border-white/10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]";
 const GLASS_ICON =
-  "bg-white/[0.05] backdrop-blur-md border border-white/10";
+  "bg-white/[0.04] backdrop-blur-md border border-white/10";
 const GLASS_PILL =
-  "bg-white/[0.05] backdrop-blur-md border border-white/10";
+  "bg-white/[0.04] backdrop-blur-md border border-white/10";
 
 // ───────────────────────────────────────────────────────────
 //  Hooks
@@ -382,14 +383,14 @@ function SectionHeading({ number, icon: Icon, title, kicker }) {
           {number}
         </span>
         {kicker && (
-          <p className="text-accent text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-3 flex items-center gap-2">
+          <p className="text-white/40 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-3 flex items-center gap-2">
             {kicker}
           </p>
         )}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold flex items-center gap-3 relative">
           {Icon && (
             <span
-              className={`inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${GLASS_ICON} text-accent`}
+              className={`inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-lg ${GLASS_ICON} text-white`}
             >
               <Icon size={20} />
             </span>
@@ -404,97 +405,23 @@ function SectionHeading({ number, icon: Icon, title, kicker }) {
 }
 
 // ───────────────────────────────────────────────────────────
-//  Global ambient background
+//  Global ambient background (subtle monochrome)
 // ───────────────────────────────────────────────────────────
 
 function AmbientLayer() {
-  const starField = {
-    backgroundImage: [
-      "radial-gradient(1.5px 1.5px at 12% 18%, rgba(255,255,255,0.75), transparent 60%)",
-      "radial-gradient(1px 1px at 25% 35%, rgba(6,182,212,0.75), transparent 60%)",
-      "radial-gradient(2px 2px at 40% 22%, rgba(255,255,255,0.55), transparent 60%)",
-      "radial-gradient(1px 1px at 55% 45%, rgba(139,92,246,0.7), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 68% 38%, rgba(255,255,255,0.65), transparent 60%)",
-      "radial-gradient(1px 1px at 82% 15%, rgba(6,182,212,0.6), transparent 60%)",
-      "radial-gradient(2px 2px at 18% 55%, rgba(255,255,255,0.5), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 35% 65%, rgba(139,92,246,0.7), transparent 60%)",
-      "radial-gradient(1px 1px at 50% 75%, rgba(255,255,255,0.7), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 70% 60%, rgba(6,182,212,0.55), transparent 60%)",
-      "radial-gradient(1px 1px at 88% 50%, rgba(255,255,255,0.6), transparent 60%)",
-      "radial-gradient(2px 2px at 10% 75%, rgba(139,92,246,0.55), transparent 60%)",
-      "radial-gradient(1px 1px at 30% 85%, rgba(255,255,255,0.7), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 60% 90%, rgba(6,182,212,0.6), transparent 60%)",
-      "radial-gradient(1px 1px at 78% 80%, rgba(255,255,255,0.55), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 45% 50%, rgba(139,92,246,0.45), transparent 60%)",
-      "radial-gradient(1px 1px at 8% 40%, rgba(255,255,255,0.5), transparent 60%)",
-      "radial-gradient(1px 1px at 92% 70%, rgba(6,182,212,0.5), transparent 60%)",
-      "radial-gradient(1px 1px at 65% 8%, rgba(244,114,182,0.55), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 22% 62%, rgba(251,191,36,0.5), transparent 60%)",
-      "radial-gradient(1px 1px at 80% 42%, rgba(52,211,153,0.5), transparent 60%)",
-      "radial-gradient(1.5px 1.5px at 48% 8%, rgba(255,255,255,0.6), transparent 60%)",
-      "radial-gradient(1px 1px at 5% 95%, rgba(244,114,182,0.45), transparent 60%)",
-      "radial-gradient(1px 1px at 95% 30%, rgba(251,191,36,0.45), transparent 60%)",
-    ].join(", "),
-    backgroundSize: "100% 100%",
-    backgroundRepeat: "no-repeat",
-  };
-
   return (
     <>
       <div
         aria-hidden="true"
         className="fixed inset-0 -z-20 overflow-hidden pointer-events-none"
       >
-        <div className="absolute top-[18%] left-[-20%] w-[140%] h-40 bg-gradient-to-r from-transparent via-accent/12 to-transparent rotate-[-8deg] blur-2xl animate-pulse" style={{ animationDuration: "18s" }} />
-        <div className="absolute top-[55%] left-[-20%] w-[140%] h-32 bg-gradient-to-r from-transparent via-violet-500/14 to-transparent rotate-[6deg] blur-2xl animate-pulse" style={{ animationDuration: "22s" }} />
-        <div className="absolute top-[80%] left-[-20%] w-[140%] h-28 bg-gradient-to-r from-transparent via-rose-500/8 to-transparent rotate-[-4deg] blur-2xl animate-pulse" style={{ animationDuration: "26s" }} />
-        <div className="absolute top-[35%] left-[-10%] w-[120%] h-24 bg-gradient-to-r from-transparent via-amber-500/8 to-transparent rotate-[3deg] blur-2xl animate-pulse" style={{ animationDuration: "24s" }} />
+        {/* Subtle radial highlights */}
+        <div className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-white/[0.04] rounded-full blur-3xl animate-pulse" style={{ animationDuration: "12s" }} />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] bg-white/[0.025] rounded-full blur-3xl animate-pulse" style={{ animationDuration: "15s" }} />
+        <div className="absolute -bottom-40 -right-40 w-[44rem] h-[44rem] bg-white/[0.03] rounded-full blur-3xl animate-pulse" style={{ animationDuration: "10s" }} />
 
-        <div className="absolute top-0 left-[18%] w-px h-full bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent" style={{ animation: "beam-shimmer 6s ease-in-out infinite" }} />
-        <div className="absolute top-0 right-[28%] w-px h-full bg-gradient-to-b from-transparent via-violet-400/25 to-transparent" style={{ animation: "beam-shimmer 9s ease-in-out infinite 1.5s" }} />
-        <div className="absolute top-0 left-[62%] w-px h-full bg-gradient-to-b from-transparent via-rose-400/20 to-transparent" style={{ animation: "beam-shimmer 7s ease-in-out infinite 3s" }} />
-
-        <div className="absolute top-[14%] right-[6%] w-36 h-36 rounded-full border border-accent/15 animate-spin-slow" />
-        <div className="absolute top-[12%] right-[8%] w-20 h-20 rounded-full border border-accent/25" style={{ animation: "spin-slow 30s linear infinite reverse" }} />
-        <div className="absolute bottom-[18%] left-[4%] w-28 h-28 rounded-full border border-violet-500/20" style={{ animation: "spin-slow 55s linear infinite" }} />
-        <div className="absolute top-[42%] left-[8%] w-24 h-24 border border-cyan-400/15 rotate-45" style={{ animation: "spin-slow 40s linear infinite" }} />
-        <div className="absolute top-[68%] right-[10%] w-20 h-20 border border-violet-400/15 rotate-12" style={{ animation: "spin-slow 35s linear infinite reverse" }} />
-        <div className="absolute top-[8%] left-[25%] w-16 h-16 border border-amber-400/20 rotate-45" style={{ animation: "spin-slow 50s linear infinite" }} />
-        <div className="absolute bottom-[10%] right-[25%] w-12 h-12 rounded-full border-2 border-dashed border-emerald-400/30" style={{ animation: "spin-slow 45s linear infinite reverse" }} />
-
-        <svg className="absolute top-[20%] right-[40%] opacity-25" style={{ animation: "spin-slow 60s linear infinite" }} width="60" height="60" viewBox="0 0 60 60" fill="none">
-          <polygon points="30,4 54,17 54,43 30,56 6,43 6,17" stroke="#06b6d4" strokeWidth="1.5" />
-        </svg>
-        <svg className="absolute bottom-[28%] left-[15%] opacity-20" style={{ animation: "spin-slow 70s linear infinite reverse" }} width="50" height="50" viewBox="0 0 50 50" fill="none">
-          <polygon points="25,3 46,14 46,36 25,47 4,36 4,14" stroke="#8b5cf6" strokeWidth="1.5" />
-        </svg>
-
-        <div className="absolute top-[55%] right-[42%] w-5 h-5 opacity-40">
-          <div className="absolute top-1/2 left-0 w-full h-px bg-rose-400 -translate-y-1/2" />
-          <div className="absolute left-1/2 top-0 h-full w-px bg-rose-400 -translate-x-1/2" />
-        </div>
-        <div className="absolute top-[30%] left-[45%] w-3 h-3 opacity-30">
-          <div className="absolute top-1/2 left-0 w-full h-px bg-emerald-400 -translate-y-1/2" />
-          <div className="absolute left-1/2 top-0 h-full w-px bg-emerald-400 -translate-x-1/2" />
-        </div>
-
-        <div className="absolute -top-40 -left-40 w-[44rem] h-[44rem] bg-accent/25 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "12s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[36rem] h-[36rem] bg-accent/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "15s" }} />
-        <div className="absolute -bottom-40 -right-40 w-[44rem] h-[44rem] bg-accent/22 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "10s" }} />
-        <div className="absolute -top-20 -right-40 w-[36rem] h-[36rem] bg-violet-500/22 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "13s" }} />
-        <div className="absolute top-1/3 left-1/4 w-[28rem] h-[28rem] bg-violet-500/14 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "9s" }} />
-        <div className="absolute bottom-1/4 -left-32 w-[36rem] h-[36rem] bg-violet-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "14s" }} />
-        <div className="absolute top-[40%] right-[20%] w-[24rem] h-[24rem] bg-rose-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "16s" }} />
-        <div className="absolute top-[8%] left-[50%] w-[28rem] h-[28rem] bg-amber-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "17s" }} />
-        <div className="absolute bottom-[5%] left-[40%] w-[32rem] h-[32rem] bg-emerald-500/12 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "19s" }} />
-        <div className="absolute top-[60%] left-[5%] w-[26rem] h-[26rem] bg-fuchsia-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "20s" }} />
-
-        <div className="absolute top-[25%] left-[20%] w-32 h-32 rounded-full bg-cyan-400/20 blur-2xl" style={{ animation: "drift 22s ease-in-out infinite" }} />
-        <div className="absolute top-[70%] right-[15%] w-40 h-40 rounded-full bg-violet-400/18 blur-2xl" style={{ animation: "drift-reverse 28s ease-in-out infinite" }} />
-        <div className="absolute bottom-[30%] left-[55%] w-28 h-28 rounded-full bg-rose-400/20 blur-2xl" style={{ animation: "drift-y 24s ease-in-out infinite" }} />
-        <div className="absolute top-[45%] right-[35%] w-24 h-24 rounded-full bg-emerald-400/15 blur-2xl" style={{ animation: "drift-y-reverse 26s ease-in-out infinite" }} />
-
-        <div className="absolute inset-0 animate-pulse" style={starField} />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-grid opacity-30" />
       </div>
 
       <div
@@ -515,7 +442,7 @@ function Navbar() {
       initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl backdrop-saturate-150 bg-slate-950/40 border-b border-white/10"
+      className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl backdrop-saturate-150 bg-black/40 border-b border-white/5"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#hero" className="font-bold text-lg tracking-tight">
@@ -526,7 +453,7 @@ function Navbar() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="hover:text-accent transition-colors duration-300"
+                className="hover:text-white transition-colors duration-300"
               >
                 {l.label}
               </a>
@@ -537,7 +464,7 @@ function Navbar() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noreferrer"
-          className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+          className="hidden md:inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
         >
           Let's talk <WhatsAppIcon size={16} />
         </a>
@@ -568,7 +495,7 @@ function Hero() {
         <span
           key={i}
           aria-hidden
-          className="absolute font-mono text-cyan-300/15 select-none pointer-events-none animate-float-soft"
+          className="absolute font-mono text-white/10 select-none pointer-events-none animate-float-soft"
           style={{
             top: s.top,
             left: s.left,
@@ -609,7 +536,7 @@ function Hero() {
               style={{ animation: "float 6s ease-in-out infinite" }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight"
             >
-              <span className="bg-gradient-to-r from-cyan-300 via-violet-300 to-rose-300 bg-clip-text text-transparent animate-gradient">
+              <span className="bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent animate-gradient">
                 {PROFILE.name}
               </span>
             </motion.h1>
@@ -639,11 +566,11 @@ function Hero() {
                 href="#projects"
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                className="group relative inline-flex items-center gap-3 pl-7 pr-6 py-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-400 text-slate-950 font-bold shadow-xl shadow-cyan-500/40 hover:shadow-cyan-400/60 transition-shadow overflow-hidden"
+                className="group relative inline-flex items-center gap-3 pl-7 pr-6 py-3.5 rounded-full bg-white text-slate-950 font-bold shadow-xl shadow-white/10 hover:shadow-white/20 transition-shadow overflow-hidden"
               >
                 <span
                   aria-hidden
-                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-slate-200/60 to-transparent"
                 />
                 <span className="relative">View projects</span>
                 <span
@@ -662,12 +589,12 @@ function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="hidden lg:flex relative w-72 h-72 items-center justify-center mx-auto"
           >
-            <div className="absolute inset-0 rounded-full border-2 border-dashed border-cyan-400/30 animate-spin-slow" />
+            <div className="absolute inset-0 rounded-full border-2 border-dashed border-white/20 animate-spin-slow" />
             <div
-              className="absolute inset-3 rounded-full border border-violet-400/20"
+              className="absolute inset-3 rounded-full border border-white/10"
               style={{ animation: "spin-slow 25s linear infinite reverse" }}
             />
-            <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-cyan-500 via-violet-500 to-rose-500 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
+            <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-white/10 via-white/5 to-transparent border border-white/10 shadow-[0_0_60px_rgba(255,255,255,0.05)]">
               {PROFILE.avatar ? (
                 <img
                   src={PROFILE.avatar}
@@ -676,17 +603,17 @@ function Hero() {
                 />
               ) : (
                 <div className="absolute inset-1 rounded-full bg-slate-950 flex items-center justify-center">
-                  <span className="text-6xl font-extrabold bg-gradient-to-br from-cyan-300 via-violet-300 to-rose-300 bg-clip-text text-transparent">
+                  <span className="text-6xl font-extrabold bg-gradient-to-br from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
                     {PROFILE.initials}
                   </span>
                 </div>
               )}
             </div>
             {[
-              { icon: Code2, angle: 0, color: "text-cyan-300", bg: "bg-cyan-500/20 border-cyan-400/40" },
-              { icon: Brain, angle: 90, color: "text-violet-300", bg: "bg-violet-500/20 border-violet-400/40" },
-              { icon: BarChart3, angle: 180, color: "text-rose-300", bg: "bg-rose-500/20 border-rose-400/40" },
-              { icon: DatabaseIcon, angle: 270, color: "text-emerald-300", bg: "bg-emerald-500/20 border-emerald-400/40" },
+              { icon: Code2, angle: 0 },
+              { icon: Brain, angle: 90 },
+              { icon: BarChart3, angle: 180 },
+              { icon: DatabaseIcon, angle: 270 },
             ].map((o, i) => {
               const rad = (o.angle * Math.PI) / 180;
               const r = 130;
@@ -696,7 +623,7 @@ function Hero() {
               return (
                 <div
                   key={i}
-                  className={`absolute w-10 h-10 rounded-full ${o.bg} border backdrop-blur-md flex items-center justify-center ${o.color}`}
+                  className={`absolute w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md flex items-center justify-center text-white/80`}
                   style={{
                     transform: `translate(${x}px, ${y}px)`,
                     animation: `spin-slow ${20 + i * 4}s linear infinite ${i % 2 ? "reverse" : ""}`,
@@ -790,8 +717,8 @@ function About() {
 
             <Reveal delay={0.1}>
               <div className={`rounded-2xl ${GLASS_CARD} p-5 md:p-6 relative overflow-hidden`}>
-                <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl bg-cyan-500/20 pointer-events-none" />
-                <h3 className="text-sm uppercase tracking-widest text-accent font-semibold mb-4 flex items-center gap-2">
+                <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl bg-white/[0.04] pointer-events-none" />
+                <h3 className="text-sm uppercase tracking-widest text-white/70 font-semibold mb-4 flex items-center gap-2">
                   <Zap size={14} /> Quick facts
                 </h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-slate-300">
@@ -799,7 +726,7 @@ function About() {
                     <li key={i} className="flex items-start gap-3">
                       <f.icon
                         size={16}
-                        className={`mt-0.5 shrink-0 ${f.highlight ? "text-emerald-400 animate-pulse" : "text-accent"}`}
+                        className={`mt-0.5 shrink-0 ${f.highlight ? "text-emerald-400 animate-pulse" : "text-white/70"}`}
                       />
                       <span className={f.highlight ? "text-emerald-300" : ""}>{f.text}</span>
                     </li>
@@ -814,21 +741,21 @@ function About() {
             {/* Education */}
             <Reveal delay={0.05}>
               <div className={`rounded-2xl ${GLASS_CARD} p-5 md:p-6 relative overflow-hidden`}>
-                <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl bg-violet-500/20 pointer-events-none" />
-                <h3 className="text-sm uppercase tracking-widest text-violet-300 font-semibold mb-4 flex items-center gap-2">
+                <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl bg-white/[0.04] pointer-events-none" />
+                <h3 className="text-sm uppercase tracking-widest text-white/70 font-semibold mb-4 flex items-center gap-2">
                   <GraduationCap size={14} /> Education
                 </h3>
                 <div className="space-y-4">
                   {EDUCATION.map((ed, i) => (
                     <div key={i} className="flex gap-3 items-start">
                       <div className="relative shrink-0 mt-1">
-                        <div className="relative w-9 h-9 rounded-lg bg-violet-500/15 border border-violet-400/30 flex items-center justify-center text-violet-300">
+                        <div className="relative w-9 h-9 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center text-white/80">
                           <ed.icon size={16} />
                         </div>
                         {ed.current && (
                           <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
                             <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
-                            <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
                           </span>
                         )}
                       </div>
@@ -838,11 +765,11 @@ function About() {
                         </p>
                         <p className="text-xs text-slate-400 mt-0.5">{ed.detail}</p>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-[10px] uppercase tracking-widest text-violet-300/80">
+                          <span className="text-[10px] uppercase tracking-widest text-white/60">
                             {ed.period}
                           </span>
                           {ed.current && (
-                            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300">
                               Now
                             </span>
                           )}
@@ -857,8 +784,8 @@ function About() {
             {/* Interests icon grid */}
             <Reveal delay={0.15}>
               <div className={`rounded-2xl ${GLASS_CARD} p-5 md:p-6 relative overflow-hidden`}>
-                <div className="absolute -bottom-12 -left-12 w-32 h-32 rounded-full blur-3xl bg-rose-500/20 pointer-events-none" />
-                <h3 className="text-sm uppercase tracking-widest text-rose-300 font-semibold mb-4 flex items-center gap-2">
+                <div className="absolute -bottom-12 -left-12 w-32 h-32 rounded-full blur-3xl bg-white/[0.04] pointer-events-none" />
+                <h3 className="text-sm uppercase tracking-widest text-white/70 font-semibold mb-4 flex items-center gap-2">
                   <Heart size={14} /> Areas of Interest
                 </h3>
                 <div className="grid grid-cols-2 gap-2.5">
@@ -872,7 +799,7 @@ function About() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: i * 0.04 }}
                         whileHover={{ y: -2, scale: 1.03 }}
-                        className={`flex items-center gap-2.5 px-3 py-2 rounded-xl ${theme.bg} ${theme.border} border ${theme.soft} hover:${theme.text} transition-colors cursor-default`}
+                        className={`flex items-center gap-2.5 px-3 py-2 rounded-xl ${theme.bg} ${theme.border} border ${theme.soft} hover:text-white transition-colors cursor-default`}
                       >
                         <it.icon size={14} className={`${theme.text} shrink-0`} />
                         <span className="text-xs font-medium leading-tight">{it.name}</span>
@@ -890,7 +817,7 @@ function About() {
 }
 
 // ───────────────────────────────────────────────────────────
-//  Skills (with animated progress bars)
+//  Skills
 // ───────────────────────────────────────────────────────────
 
 function Skills() {
@@ -963,7 +890,7 @@ function Skills() {
 }
 
 // ───────────────────────────────────────────────────────────
-//  Projects (icon badges + meta stats)
+//  Projects
 // ───────────────────────────────────────────────────────────
 
 function Projects() {
@@ -995,7 +922,7 @@ function ProjectCard({ project }) {
       <div className="relative p-[1.5px] rounded-2xl overflow-hidden">
         <div
           aria-hidden
-          className={`absolute inset-0 bg-gradient-to-br ${project.conic} opacity-50 animate-conic-spin`}
+          className={`absolute inset-0 bg-gradient-to-br ${project.conic} opacity-40 animate-conic-spin`}
           style={{ filter: "blur(0.5px)" }}
         />
         <div className={`relative rounded-2xl ${GLASS_CARD} p-5 md:p-6 h-full`}>
@@ -1035,7 +962,6 @@ function ProjectCard({ project }) {
               {project.description}
             </p>
 
-            {/* Meta stats grid */}
             <div className="grid grid-cols-3 gap-2 mb-4">
               <MetaStat icon={Briefcase} label="Impact" value={project.meta.impact} theme={theme} />
               <MetaStat icon={Calendar} label="Year" value={project.meta.timeline} theme={theme} />
@@ -1056,7 +982,6 @@ function ProjectCard({ project }) {
               </ul>
             </div>
 
-            {/* Tech icon badges */}
             <div>
               <p className="text-[10px] uppercase tracking-widest text-slate-500 mb-2">
                 Tech Stack
@@ -1091,7 +1016,7 @@ function MetaStat({ icon: Icon, label, value, theme }) {
 }
 
 // ───────────────────────────────────────────────────────────
-//  Experience (timeline with icons in dots + pulse)
+//  Experience
 // ───────────────────────────────────────────────────────────
 
 function Experience() {
@@ -1101,8 +1026,7 @@ function Experience() {
         <SectionHeading number="04" icon={Briefcase} kicker="Experience" title="Beyond the code" />
 
         <div className="relative max-w-3xl">
-          {/* Vertical line */}
-          <div className="absolute left-5 md:left-6 top-2 bottom-2 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+          <div className="absolute left-5 md:left-6 top-2 bottom-2 w-px bg-gradient-to-b from-transparent via-white/15 to-transparent" />
 
           <motion.ol
             initial="hidden"
@@ -1120,16 +1044,13 @@ function Experience() {
                   transition={{ duration: 0.6 }}
                   className="relative pl-14 md:pl-16"
                 >
-                  {/* Pulsing dot with icon */}
                   <div className="absolute left-0 top-0">
                     <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-950 border border-white/10 flex items-center justify-center">
-                      {/* Pulse ring */}
-                      <span className="absolute inset-0 rounded-full bg-rose-400/30 animate-pulse-ring" />
+                      <span className="absolute inset-0 rounded-full bg-white/10 animate-pulse-ring" />
                       <e.icon size={16} className={`relative ${theme.text}`} />
                     </div>
                   </div>
 
-                  {/* Card */}
                   <div className={`relative rounded-2xl ${GLASS_CARD} p-5 md:p-6 overflow-hidden`}>
                     <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full blur-3xl ${theme.glow} opacity-30 pointer-events-none`} />
                     <div className="relative">
@@ -1168,8 +1089,8 @@ function Contact() {
             <div className={`relative overflow-hidden rounded-3xl ${GLASS_CARD} p-6 sm:p-8 md:p-14`}>
               <CornerBrackets />
 
-              <div className="absolute -top-24 -right-24 w-72 h-72 bg-accent/30 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -top-24 -right-24 w-72 h-72 bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-white/[0.02] rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-xs sm:text-sm mb-4">
@@ -1196,7 +1117,7 @@ function Contact() {
                     rel="noreferrer"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-lg bg-[#25D366] hover:bg-[#1ebe5b] text-white font-semibold shadow-lg shadow-[#25D366]/30 transition-colors text-sm md:text-base"
+                    className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-lg bg-white text-slate-950 hover:bg-slate-200 font-semibold shadow-lg shadow-white/10 transition-colors text-sm md:text-base"
                   >
                     <WhatsAppIcon size={18} /> Chat on WhatsApp
                   </motion.a>
@@ -1231,7 +1152,7 @@ function Contact() {
 }
 
 function CornerBrackets() {
-  const cls = "absolute w-6 h-6 border-accent/40 pointer-events-none";
+  const cls = "absolute w-6 h-6 border-white/20 pointer-events-none";
   return (
     <>
       <span className={`${cls} top-3 left-3 border-t-2 border-l-2 rounded-tl-md`} />
@@ -1248,11 +1169,11 @@ function CornerBrackets() {
 
 function Footer() {
   return (
-    <footer className="relative border-t border-white/10 backdrop-blur-md bg-slate-950/30 py-8">
+    <footer className="relative border-t border-white/5 backdrop-blur-md bg-black/30 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500">
         <p>
-          Built with <span className="text-accent">React</span> +{" "}
-          <span className="text-accent">Tailwind CSS</span>
+          Built with <span className="text-white">React</span> +{" "}
+          <span className="text-white">Tailwind CSS</span>
         </p>
       </div>
     </footer>
@@ -1265,7 +1186,7 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen text-white">
       <AmbientLayer />
       <Navbar />
       <main className="relative">
