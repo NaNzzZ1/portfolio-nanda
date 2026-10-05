@@ -1,0 +1,115 @@
+{
+  "nav": {
+    "links": [
+      { "label": "Tentang", "href": "#about" },
+      { "label": "Keterampilan", "href": "#skills" },
+      { "label": "Proyek", "href": "#projects" },
+      { "label": "Pengalaman", "href": "#experience" },
+      { "label": "Kontak", "href": "#contact" }
+    ],
+    "cta": "Hubungi saya"
+  },
+  "hero": {
+    "welcome": "Selamat datang",
+    "availability": "Terbuka untuk kesempatan",
+    "viewProjects": "Lihat proyek"
+  },
+  "profile": {
+    "name": "Nandana Fawaz Al'Aziz",
+    "title": "Mahasiswa Tahun ke-3 CS BINUS University",
+    "bio": "Mahasiswa tahun ke-3 Computer Science BINUS University yang tertarik pada AI, Machine Learning, Data Analysis, dan Software Development."
+  },
+  "about": {
+    "sectionKicker": "Tentang saya",
+    "sectionTitle": "Kenali saya lebih dekat",
+    "status": "Terbuka untuk magang · Berkedudukan di Indonesia",
+    "quickFacts": "Fakta Singkat",
+    "education": "Pendidikan",
+    "interests": "Bidang Minat",
+    "paragraphs": [
+      "Halo, saya Nandana Fawaz Al'Aziz mahasiswa BINUS University yang memiliki minat besar dalam bidang teknologi dan pengembangan software. Saya senang mempelajari hal baru, bekerja secara tim, serta mengembangkan kemampuan dalam pemrograman dan analisis sistem.",
+      "Saat ini saya sedang fokus meningkatkan kemampuan di bidang software development, khususnya Java, web development, dan database.",
+      "Saya terbuka untuk kesempatan belajar, kolaborasi proyek, internship, dan pengembangan karier di bidang teknologi."
+    ],
+    "facts": {
+      "location": "Berkedudukan di Indonesia",
+      "university": "CS di BINUS University",
+      "field": "Software Engineering",
+      "status": "Sedang menempuh pendidikan"
+    }
+  },
+  "education": [
+    { "school": "BINUS University", "detail": "Computer Science", "period": "Sekarang", "currentLabel": "Sekarang" },
+    { "school": "SMAN 12 Tangerang Selatan", "detail": "Sekolah Menengah Atas", "period": "SMA", "currentLabel": "" }
+  ],
+  "interests": [
+    { "name": "AI" },
+    { "name": "Machine Learning" },
+    { "name": "Computer Vision" },
+    { "name": "LLM" },
+    { "name": "Data Analysis" },
+    { "name": "Software Engineering" }
+  ],
+  "skills": {
+    "sectionKicker": "Keterampilan",
+    "sectionTitle": "Yang saya kuasai",
+    "categories": [
+      { "title": "Pemrograman", "items": ["Python", "Java", "C", "C++"] },
+      { "title": "AI / Machine Learning", "items": ["PyTorch", "TensorFlow", "ResNet50", "EfficientNetB0", "CNN", "Klasifikasi Gambar"] },
+      { "title": "Data & Analisis", "items": ["EDA", "Pembersihan Data", "Klasifikasi", "Confusion Matrix", "ROC-AUC", "Pengujian Statistik"] },
+      { "title": "Database", "items": ["MySQL", "SQL", "ERD", "Desain Database", "Normalisasi"] },
+      { "title": "Tools", "items": ["Figma", "Git", "Android Studio", "VS Code", "Eclipse"] }
+    ]
+  },
+  "projects": {
+    "sectionKicker": "Proyek",
+    "sectionTitle": "Karya terpilih",
+    "meta": { "impact": "Dampak", "year": "Tahun", "status": "Status", "completed": "Selesai", "focus": "Fokus", "techStack": "Tech Stack" },
+    "items": [
+      {
+        "title": "Deteksi TB", "subtitle": "Deep Learning untuk Pencitraan Medis",
+        "description": "Sistem deep learning untuk mendeteksi Tuberculosis dari citra X-ray paru secara otomatis menggunakan arsitektur CNN modern dengan evaluasi model komprehensif.",
+        "meta": { "role": "Data Analyst / ML", "impact": "Pencitraan Medis", "timeline": "2024" },
+        "tech": [{ "name": "CNN" }, { "name": "ResNet50" }, { "name": "EfficientNetB0" }, { "name": "Grad-CAM" }],
+        "focus": ["Analisis citra X-ray", "Evaluasi model"]
+      },
+      {
+        "title": "PlanIt", "subtitle": "Penemuan Venue & Event Organizer",
+        "description": "Aplikasi mobile untuk menemukan venue dan event organizer terdekat dengan tampilan antarmuka yang intuitif dan sistem rekomendasi personal.",
+        "meta": { "role": "UI/UX Designer", "impact": "Aplikasi Mobile", "timeline": "2024" },
+        "tech": [{ "name": "Figma" }, { "name": "Mobile UI" }, { "name": "Design System" }],
+        "focus": ["Beranda", "Jelajah", "Aktivitas", "Profil"]
+      },
+      {
+        "title": "Deteksi Toksisitas AI", "subtitle": "Toksisitas Implisit di Media Sosial",
+        "description": "Riset deteksi toksisitas implisit pada media sosial menggunakan pendekatan NLP dan Large Language Model dengan contextual augmentation.",
+        "meta": { "role": "Peneliti", "impact": "Riset NLP", "timeline": "2025" },
+        "tech": [{ "name": "NLP" }, { "name": "LLM" }, { "name": "Contextual Aug." }],
+        "focus": ["Toksisitas implisit", "Analisis media sosial"]
+      }
+    ]
+  },
+  "experience": {
+    "sectionKicker": "Pengalaman",
+    "sectionTitle": "Di luar kode",
+    "items": [{ "title": "Program EESE", "role": "Relawan Edukasi Anti-Perundungan", "period": "2024", "description": "Mengedukasi siswa SMP tentang bahaya perundungan dan membangun lingkungan belajar yang aman dan positif melalui sesi interaktif." }]
+  },
+  "stats": [
+    { "label": "Proyek" },
+    { "label": "Keterampilan" },
+    { "label": "Bidang Tech" },
+    { "label": "Lulus" }
+  ],
+  "contact": {
+    "sectionKicker": "Kontak",
+    "sectionTitle": "Mari Terhubung",
+    "status": "Saat ini online · Waktu balas: ~2 jam",
+    "headline": "Mari bangun sesuatu bersama",
+    "body": "Saya terbuka untuk diskusi tentang teknologi, kolaborasi proyek, atau peluang internship. Cara tercepat untuk menghubungi saya adalah lewat WhatsApp.",
+    "whatsapp": "Chat via WhatsApp",
+    "email": "Email",
+    "linkedin": "LinkedIn"
+  },
+  "footer": { "builtWith": "Dibangun dengan React + Tailwind CSS" },
+  "whatsapp": { "message": "Halo Nandana, saya ingin berdiskusi tentang teknologi / kolaborasi proyek." }
+}

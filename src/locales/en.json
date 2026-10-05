@@ -1,0 +1,115 @@
+{
+  "nav": {
+    "links": [
+      { "label": "About", "href": "#about" },
+      { "label": "Skills", "href": "#skills" },
+      { "label": "Projects", "href": "#projects" },
+      { "label": "Experience", "href": "#experience" },
+      { "label": "Contact", "href": "#contact" }
+    ],
+    "cta": "Let's talk"
+  },
+  "hero": {
+    "welcome": "Welcome",
+    "availability": "Available for opportunities",
+    "viewProjects": "View projects"
+  },
+  "profile": {
+    "name": "Nandana Fawaz Al'Aziz",
+    "title": "3rd-year CS Undergraduate BINUS University",
+    "bio": "A 3rd-year Computer Science student at BINUS University with a strong interest in AI, Machine Learning, Data Analysis, and Software Development."
+  },
+  "about": {
+    "sectionKicker": "About me",
+    "sectionTitle": "Get to know me",
+    "status": "Open to internship · Based in Indonesia",
+    "quickFacts": "Quick facts",
+    "education": "Education",
+    "interests": "Areas of Interest",
+    "paragraphs": [
+      "Hi, I'm Nandana Fawaz Al'Aziz, a BINUS University student with a deep passion for technology and software development. I enjoy learning new things, working in teams, and building my skills in programming and systems analysis.",
+      "Currently, I'm focused on improving my abilities in software development, particularly Java, web development, and databases.",
+      "I'm open to learning opportunities, project collaborations, internships, and career development in the technology field."
+    ],
+    "facts": {
+      "location": "Based in Indonesia",
+      "university": "CS At BINUS University",
+      "field": "Software Engineering",
+      "status": "Currently studying"
+    }
+  },
+  "education": [
+    { "school": "BINUS University", "detail": "Computer Science", "period": "Present", "currentLabel": "Now" },
+    { "school": "SMAN 12 Tangerang Selatan", "detail": "Senior High School", "period": "Senior High School", "currentLabel": "" }
+  ],
+  "interests": [
+    { "name": "AI" },
+    { "name": "Machine Learning" },
+    { "name": "Computer Vision" },
+    { "name": "LLM" },
+    { "name": "Data Analysis" },
+    { "name": "Software Engineering" }
+  ],
+  "skills": {
+    "sectionKicker": "Skills",
+    "sectionTitle": "What I work with",
+    "categories": [
+      { "title": "Programming", "items": ["Python", "Java", "C", "C++"] },
+      { "title": "AI / Machine Learning", "items": ["PyTorch", "TensorFlow", "ResNet50", "EfficientNetB0", "CNN", "Image Classification"] },
+      { "title": "Data & Analysis", "items": ["EDA", "Data Cleaning", "Classification", "Confusion Matrix", "ROC-AUC", "Statistical Testing"] },
+      { "title": "Database", "items": ["MySQL", "SQL", "ERD", "Database Design", "Normalization"] },
+      { "title": "Tools", "items": ["Figma", "Git", "Android Studio", "VS Code", "Eclipse"] }
+    ]
+  },
+  "projects": {
+    "sectionKicker": "Projects",
+    "sectionTitle": "Selected work",
+    "meta": { "impact": "Impact", "year": "Year", "status": "Status", "completed": "Completed", "focus": "Focus", "techStack": "Tech Stack" },
+    "items": [
+      {
+        "title": "TB Detection", "subtitle": "Deep Learning for Medical Imaging",
+        "description": "A deep learning system to automatically detect Tuberculosis from lung X-ray images using modern CNN architectures with comprehensive model evaluation.",
+        "meta": { "role": "Data Analyst / ML", "impact": "Medical Imaging", "timeline": "2024" },
+        "tech": [{ "name": "CNN" }, { "name": "ResNet50" }, { "name": "EfficientNetB0" }, { "name": "Grad-CAM" }],
+        "focus": ["X-ray image analysis", "Model evaluation"]
+      },
+      {
+        "title": "PlanIt", "subtitle": "Venue & Event Organizer Discovery",
+        "description": "A mobile application to discover nearby venues and event organizers with an intuitive interface and personalized recommendation system.",
+        "meta": { "role": "UI/UX Designer", "impact": "Mobile App", "timeline": "2024" },
+        "tech": [{ "name": "Figma" }, { "name": "Mobile UI" }, { "name": "Design System" }],
+        "focus": ["Home", "Explore", "Activity", "Profile"]
+      },
+      {
+        "title": "AI Toxicity Detection", "subtitle": "Implicit Toxicity in Social Media",
+        "description": "Research on implicit toxicity detection in social media using NLP and Large Language Model approaches with contextual augmentation.",
+        "meta": { "role": "Researcher", "impact": "NLP Research", "timeline": "2025" },
+        "tech": [{ "name": "NLP" }, { "name": "LLM" }, { "name": "Contextual Aug." }],
+        "focus": ["Implicit toxicity", "Social media analysis"]
+      }
+    ]
+  },
+  "experience": {
+    "sectionKicker": "Experience",
+    "sectionTitle": "Beyond the code",
+    "items": [{ "title": "Program EESE", "role": "Anti-bullying Education Volunteer", "period": "2024", "description": "Educating middle school students about the dangers of bullying and building a safe, positive learning environment through interactive sessions." }]
+  },
+  "stats": [
+    { "label": "Projects" },
+    { "label": "Skills" },
+    { "label": "Tech Areas" },
+    { "label": "Graduating" }
+  ],
+  "contact": {
+    "sectionKicker": "Contact",
+    "sectionTitle": "Let's Connect",
+    "status": "Currently online · Average reply: ~2 hours",
+    "headline": "Let's build something together",
+    "body": "I'm open to discussions about technology, project collaboration, or internship opportunities. The fastest way to reach me is via WhatsApp.",
+    "whatsapp": "Chat on WhatsApp",
+    "email": "Email",
+    "linkedin": "LinkedIn"
+  },
+  "footer": { "builtWith": "Built with React + Tailwind CSS" },
+  "whatsapp": { "message": "Hello Nandana, I would like to discuss technology / project collaboration." }
+}

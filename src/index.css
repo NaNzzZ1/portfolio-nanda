@@ -124,3 +124,130 @@ body::before {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 0.8; }
 }
+
+/* ─── Animated gradient text (multi-stop cycling) ─── */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 100%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+  background-size: 400% 400%;
+  animation: gradient-shift 8s ease-in-out infinite;
+}
+
+/* ─── Continuous CTA button shine ─── */
+@keyframes btn-shine {
+  0%   { transform: translateX(-200%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+.btn-shine-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255,255,255,0.45) 50%,
+    transparent 60%
+  );
+  width: 35%;
+  animation: btn-shine 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ─── Scroll progress bar ─── */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899);
+  z-index: 9999;
+}
+
+/* ─── Skill card 3D tilt ─── */
+.skill-card-inner {
+  transform-style: preserve-3d;
+  perspective: 900px;
+}
+
+/* ─── Stats count complete flash ─── */
+@keyframes stats-flash {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.18); color: #fff; }
+  100% { transform: scale(1); }
+}
+.stats-flash { animation: stats-flash 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+/* ─── Section heading SVG underline draw ─── */
+@keyframes draw-underline {
+  from { stroke-dashoffset: 280; }
+  to   { stroke-dashoffset: 0; }
+}
+.section-underline {
+  stroke-dasharray: 280;
+  stroke-dashoffset: 280;
+  animation: draw-underline 1s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+/* ─── Interest tag shimmer ripple ─── */
+@keyframes shimmer-ripple {
+  0%   { background-position: -250% center; }
+  100% { background-position: 250% center; }
+}
+.interest-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.07) 38%,
+    rgba(255,255,255,0.13) 50%,
+    rgba(255,255,255,0.07) 62%,
+    transparent 100%
+  );
+  background-size: 250% 100%;
+  animation: shimmer-ripple 1.6s ease-out forwards;
+}
+
+/* ─── Experience timeline flow dashes ─── */
+@keyframes timeline-flow {
+  from { background-position: 0 0; }
+  to   { background-position: 0 64px; }
+}
+
+/* ─── Button click ripple ─── */
+@keyframes ripple-expand {
+  0%   { transform: scale(0); opacity: 0.55; }
+  100% { transform: scale(4.5); opacity: 0; }
+}
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.32);
+  pointer-events: none;
+}
+
+/* ─── Canvas particle layer ─── */
+#particles-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Floating dots ─── */
+.floating-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* ─── Blur-in text entrance ─── */
+@keyframes blur-in {
+  from { filter: blur(10px); opacity: 0; transform: translateY(8px); }
+  to   { filter: blur(0);   opacity: 1; transform: translateY(0); }
+}
+.blur-in { animation: blur-in 0.85s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
