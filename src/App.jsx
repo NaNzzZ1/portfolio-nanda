@@ -31,6 +31,8 @@ import {
   Sparkle,
   Code,
   Globe,
+  Menu,
+  X,
 } from "lucide-react";
 
 // ───────────────────────────────────────────────────────────
@@ -356,6 +358,7 @@ function Navbar() {
   const { t, i18n } = useTranslation();
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t(WHATSAPP_MESSAGE_KEY))}`;
   const [scrollPct, setScrollPct] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -366,6 +369,18 @@ function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setIsOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
 
   return (
     <>
@@ -387,16 +402,84 @@ function Navbar() {
             </li>
           ))}
         </ul>
-        <div className="hidden md:flex items-center gap-4">
-          <LanguageToggle />
-          <a href={whatsappUrl} target="_blank" rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
+        <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-4">
+            <LanguageToggle />
+            <a href={whatsappUrl} target="_blank" rel="noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
+            >
+              {t("nav.cta")} <WhatsAppIcon size={16} />
+            </a>
+          </div>
+          <motion.button
+            type="button"
+            onClick={() => setIsOpen((o) => !o)}
+            whileTap={{ scale: 0.9 }}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/[0.04] backdrop-blur-md border border-white/10 text-white hover:bg-white/[0.08] transition-colors"
           >
-            {t("nav.cta")} <WhatsAppIcon size={16} />
-          </a>
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </motion.button>
         </div>
       </div>
     </motion.nav>
+
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="mobile-menu"
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={() => setIsOpen(false)}
+          className="md:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+        >
+          <motion.div
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            onClick={(e) => e.stopPropagation()}
+            className="fixed top-16 inset-x-0 z-40 backdrop-blur-xl backdrop-saturate-150 bg-black/40 border-b border-white/5"
+          >
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-6">
+              <ul className="flex flex-col text-slate-200">
+                {NAV_LINKS.map((l) => (
+                  <li key={l.href} className="border-b border-white/5">
+                    <a
+                      href={l.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block py-3.5 text-base font-medium hover:text-white transition-colors"
+                    >
+                      {t(l.label)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center justify-between gap-4 pt-5">
+                <LanguageToggle />
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-white transition-colors"
+                >
+                  {t("nav.cta")} <WhatsAppIcon size={16} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
     </>
   );
 }
